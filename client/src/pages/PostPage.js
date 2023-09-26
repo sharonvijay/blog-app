@@ -9,12 +9,14 @@ const PostPage = () => {
 	const { id } = useParams();
 
 	useEffect(() => {
-		fetch(`http://localhost:5000/api/post/${id}`).then((response) => {
-			response.json().then((postInfo) => {
-				setPostInfo(postInfo);
-			});
-		});
-	}, []);
+		fetch(`https://sharonvijay-blog-app-api.vercel.app/api/post/${id}`).then(
+			(response) => {
+				response.json().then((postInfo) => {
+					setPostInfo(postInfo);
+				});
+			}
+		);
+	}, [id]);
 
 	if (!postInfo) return "";
 
@@ -44,7 +46,10 @@ const PostPage = () => {
 				</div>
 			)}
 			<div className="image">
-				<img src={`http://localhost:5000/${postInfo.cover}`} alt="" />
+				<img
+					src={`https://sharonvijay-blog-app-api.vercel.app/${postInfo.cover}`}
+					alt=""
+				/>
 			</div>
 			<div
 				className="content"

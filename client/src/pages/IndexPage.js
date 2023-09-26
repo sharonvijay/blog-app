@@ -4,11 +4,13 @@ const IndexPage = () => {
 	const [posts, setPosts] = useState([]);
 
 	useEffect(() => {
-		fetch("http://localhost:5000/api/post").then((response) => {
-			response.json().then((posts) => {
-				setPosts(posts);
-			});
-		});
+		fetch("https://sharonvijay-blog-app-api.vercel.app/api/post").then(
+			(response) => {
+				response.json().then((posts) => {
+					setPosts(posts);
+				});
+			}
+		);
 	}, []);
 
 	return (

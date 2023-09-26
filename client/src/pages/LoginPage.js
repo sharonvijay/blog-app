@@ -12,12 +12,15 @@ const LoginPage = () => {
 
 	async function login(ev) {
 		ev.preventDefault();
-		const response = await fetch("http://localhost:5000/api/user/login", {
-			method: "POST",
-			body: JSON.stringify({ username, password }),
-			headers: { "Content-Type": "application/json" },
-			credentials: "include",
-		});
+		const response = await fetch(
+			"https://sharonvijay-blog-app-api.vercel.app/api/user/login",
+			{
+				method: "POST",
+				body: JSON.stringify({ username, password }),
+				headers: { "Content-Type": "application/json" },
+				credentials: "include",
+			}
+		);
 		if (response.ok) {
 			response.json().then((userInfo) => {
 				// setUserInfo(userInfo);
@@ -32,9 +35,12 @@ const LoginPage = () => {
 	}
 	async function fetchUserInfoAndSetContext() {
 		try {
-			const response = await fetch("http://localhost:5000/api/user/profile", {
-				credentials: "include",
-			});
+			const response = await fetch(
+				"https://sharonvijay-blog-app-api.vercel.app/api/user/profile",
+				{
+					credentials: "include",
+				}
+			);
 			if (!response.ok) {
 				throw new Error("Network response was not ok");
 			}

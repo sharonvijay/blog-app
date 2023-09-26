@@ -6,11 +6,14 @@ const RegisterPage = () => {
 
 	async function register(ev) {
 		ev.preventDefault();
-		const response = await fetch("http://localhost:5000/api/user/register", {
-			method: "POST",
-			body: JSON.stringify({ username, password }),
-			headers: { "Content-Type": "application/json" },
-		});
+		const response = await fetch(
+			"https://sharonvijay-blog-app-api.vercel.app/api/user/register",
+			{
+				method: "POST",
+				body: JSON.stringify({ username, password }),
+				headers: { "Content-Type": "application/json" },
+			}
+		);
 		if (response.status === 200) {
 			alert("registration successful");
 		} else {

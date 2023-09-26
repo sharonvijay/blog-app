@@ -16,11 +16,14 @@ const CreatePost = () => {
 		data.set("summary", summary);
 		data.set("content", content);
 		data.set("file", files[0]);
-		const response = await fetch("http://localhost:5000/api/post/upload", {
-			method: "POST",
-			body: data,
-			credentials: "include",
-		});
+		const response = await fetch(
+			"https://sharonvijay-blog-app-api.vercel.app/api/post/upload",
+			{
+				method: "POST",
+				body: data,
+				credentials: "include",
+			}
+		);
 		if (response.ok) {
 			setRedirect(true);
 		}

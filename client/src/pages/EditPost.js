@@ -10,13 +10,15 @@ const EditPost = () => {
 	const [redirect, setRedirect] = useState(false);
 
 	useEffect(() => {
-		fetch("http://localhost:5000/api/post/" + id).then((response) => {
-			response.json().then((postInfo) => {
-				setTitle(postInfo.title);
-				setContent(postInfo.content);
-				setSummary(postInfo.summary);
-			});
-		});
+		fetch("https://sharonvijay-blog-app-api.vercel.app/api/post/" + id).then(
+			(response) => {
+				response.json().then((postInfo) => {
+					setTitle(postInfo.title);
+					setContent(postInfo.content);
+					setSummary(postInfo.summary);
+				});
+			}
+		);
 	}, [id]);
 
 	async function updatePost(ev) {
@@ -29,11 +31,14 @@ const EditPost = () => {
 		if (files?.[0]) {
 			data.set("file", files?.[0]);
 		}
-		const response = await fetch("http://localhost:5000/api/post/update", {
-			method: "PUT",
-			body: data,
-			credentials: "include",
-		});
+		const response = await fetch(
+			"https://sharonvijay-blog-app-api.vercel.app/api/post/update",
+			{
+				method: "PUT",
+				body: data,
+				credentials: "include",
+			}
+		);
 		if (response.ok) {
 			setRedirect(true);
 		}
