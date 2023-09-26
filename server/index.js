@@ -21,6 +21,22 @@ app.use(
 		credentials: true, // Allow credentials (cookies) to be sent
 	})
 );
+
+// Handle preflight requests
+app.options("*", (req, res) => {
+	res.setHeader(
+		"Access-Control-Allow-Origin",
+		"https://sharonvijay-blog-app.vercel.app"
+	);
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, PUT, DELETE, OPTIONS"
+	);
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+	res.setHeader("Access-Control-Allow-Credentials", "true");
+	res.status(200).end();
+});
+
 app.use(cookieParser());
 app.use(express.json());
 app.use("/uploads", express.static(__dirname + "/uploads"));
