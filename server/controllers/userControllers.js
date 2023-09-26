@@ -8,6 +8,17 @@ const secret = "asdfe45we45w345wegw345werjktjwertkj";
 
 //Register
 const registerUser = asyncHandler(async (req, res) => {
+	res.setHeader(
+		"Access-Control-Allow-Origin",
+		"https://sharonvijay-blog-app.vercel.app"
+	);
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, PUT, DELETE, OPTIONS"
+	);
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+	res.setHeader("Access-Control-Allow-Credentials", "true");
+
 	const { username, password } = req.body;
 	try {
 		const userDoc = await User.create({
@@ -23,6 +34,17 @@ const registerUser = asyncHandler(async (req, res) => {
 
 //Login
 const loginUser = asyncHandler(async (req, res) => {
+	res.setHeader(
+		"Access-Control-Allow-Origin",
+		"https://sharonvijay-blog-app.vercel.app"
+	);
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, PUT, DELETE, OPTIONS"
+	);
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+	res.setHeader("Access-Control-Allow-Credentials", "true");
+
 	const { username, password } = req.body;
 	const userDoc = await User.findOne({ username });
 	const passOk = bcrypt.compareSync(password, userDoc.password);
