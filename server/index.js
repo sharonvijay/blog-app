@@ -14,7 +14,7 @@ const app = express();
 
 //Middlewares
 
-// Configure CORS to allow requests from 'http://localhost:3000'
+// Configure CORS to allow requests from 'https://sharonvijay-blog-app.vercel.app'
 app.use(
 	cors({
 		origin: "https://sharonvijay-blog-app.vercel.app",
