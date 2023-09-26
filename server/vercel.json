@@ -1,10 +1,11 @@
 {
 	"version": 2,
 	"builds": [{ "src": "*.js", "use": "@vercel/node" }],
-	"routes": [{ "src": "/(.*)", "dest": "/" }],
-	"headers": [
+	"routes": [
 		{
-			"source": "/api/(.*)",
+			"src": "/(.*)",
+			"dest": "/",
+			"methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
 			"headers": [
 				{ "key": "Access-Control-Allow-Credentials", "value": "true" },
 				{ "key": "Access-Control-Allow-Origin", "value": "*" },
