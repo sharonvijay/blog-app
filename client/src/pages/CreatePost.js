@@ -42,7 +42,7 @@ const CreatePost = () => {
 		data.set("title", title);
 		data.set("summary", summary);
 		data.set("content", content);
-		data.set("file", imageUrl);
+		data.set("cover", imageUrl);
 
 		const token = localStorage.getItem("authToken");
 

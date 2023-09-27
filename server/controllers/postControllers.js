@@ -19,7 +19,7 @@ const uploadPost = asyncHandler(async (req, res) => {
 
 	jwt.verify(token, secret, {}, async (err, info) => {
 		if (err) throw err;
-		const { title, summary, content } = req.body;
+		const { title, summary, content, cover } = req.body;
 
 		try {
 			const postDoc = await Post.create({
