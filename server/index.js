@@ -14,14 +14,14 @@ const app = express();
 
 //Middlewares
 
-// Configure CORS to allow requests from 'https://sharonvijay-blog-app.vercel.app'
-// app.use(
-// 	cors({
-// 		origin: "https://sharonvijay-blog-app.vercel.app",
-// 		credentials: true, // Allow credentials (cookies) to be sent
-// 	})
-// );
-app.use(cors());
+//Configure CORS to allow requests from 'https://sharonvijay-blog-app.vercel.app'
+app.use(
+	cors({
+		origin: "https://sharonvijay-blog-app.vercel.app",
+		credentials: true, // Allow credentials (cookies) to be sent
+	})
+);
+//app.use(cors());
 
 // Handle preflight requests
 app.options("*", (req, res) => {
