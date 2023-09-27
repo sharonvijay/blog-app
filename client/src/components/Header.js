@@ -6,7 +6,7 @@ const Header = () => {
 	const { setUserInfo, userInfo } = useContext(UserContext);
 
 	function logout() {
-		fetch("https://sharonvijay-blog-app-api.vercel.app/api/user/logout", {
+		fetch("https://sharonvijay-blog-app-api.onrender.com/api/user/logout", {
 			credentials: "include",
 			method: "POST",
 		});

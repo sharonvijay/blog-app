@@ -9,7 +9,7 @@ const PostPage = () => {
 	const { id } = useParams();
 
 	useEffect(() => {
-		fetch(`https://sharonvijay-blog-app-api.vercel.app/api/post/${id}`).then(
+		fetch(`https://sharonvijay-blog-app-api.onrender.com/api/post/${id}`).then(
 			(response) => {
 				response.json().then((postInfo) => {
 					setPostInfo(postInfo);
@@ -47,7 +47,7 @@ const PostPage = () => {
 			)}
 			<div className="image">
 				<img
-					src={`https://sharonvijay-blog-app-api.vercel.app/${postInfo.cover}`}
+					src={`https://sharonvijay-blog-app-api.onrender.com/${postInfo.cover}`}
 					alt=""
 				/>
 			</div>

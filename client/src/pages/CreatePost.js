@@ -17,7 +17,7 @@ const CreatePost = () => {
 		data.set("content", content);
 		data.set("file", files[0]);
 		const response = await fetch(
-			"https://sharonvijay-blog-app-api.vercel.app/api/post/upload",
+			"https://sharonvijay-blog-app-api.onrender.com/api/post/upload",
 			{
 				method: "POST",
 				body: data,

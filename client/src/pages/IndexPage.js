@@ -4,7 +4,7 @@ const IndexPage = () => {
 	const [posts, setPosts] = useState([]);
 
 	useEffect(() => {
-		fetch("https://sharonvijay-blog-app-api.vercel.app/api/post").then(
+		fetch("https://sharonvijay-blog-app-api.onrender.com/api/post").then(
 			(response) => {
 				response.json().then((posts) => {
 					setPosts(posts);

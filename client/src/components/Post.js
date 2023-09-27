@@ -6,7 +6,7 @@ const Post = ({ _id, title, summary, cover, content, createdAt, author }) => {
 			<div className="image">
 				<Link to={`/post/${_id}`}>
 					<img
-						src={"https://sharonvijay-blog-app-api.vercel.app/" + cover}
+						src={"hhttps://sharonvijay-blog-app-api.onrender.com/" + cover}
 						alt=""
 					/>
 				</Link>

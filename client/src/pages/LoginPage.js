@@ -13,7 +13,7 @@ const LoginPage = () => {
 	async function login(ev) {
 		ev.preventDefault();
 		const response = await fetch(
-			"https://sharonvijay-blog-app-api.vercel.app/api/user/login",
+			"https://sharonvijay-blog-app-api.onrender.com/api/user/login",
 			{
 				method: "POST",
 				body: JSON.stringify({ username, password }),
@@ -37,7 +37,7 @@ const LoginPage = () => {
 	async function fetchUserInfoAndSetContext() {
 		try {
 			const response = await fetch(
-				"https://sharonvijay-blog-app-api.vercel.app/api/user/profile",
+				"https://sharonvijay-blog-app-api.onrender.com/api/user/profile",
 				{
 					credentials: "include",
 				}

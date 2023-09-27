@@ -7,7 +7,7 @@ const RegisterPage = () => {
 	async function register(ev) {
 		ev.preventDefault();
 		const response = await fetch(
-			"https://sharonvijay-blog-app-api.vercel.app/api/user/register",
+			"https://sharonvijay-blog-app-api.onrender.com/api/user/register",
 			{
 				method: "POST",
 				body: JSON.stringify({ username, password }),

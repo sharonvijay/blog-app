@@ -10,7 +10,7 @@ const EditPost = () => {
 	const [redirect, setRedirect] = useState(false);
 
 	useEffect(() => {
-		fetch("https://sharonvijay-blog-app-api.vercel.app/api/post/" + id).then(
+		fetch("https://sharonvijay-blog-app-api.onrender.com/api/post/" + id).then(
 			(response) => {
 				response.json().then((postInfo) => {
 					setTitle(postInfo.title);
@@ -32,7 +32,7 @@ const EditPost = () => {
 			data.set("file", files?.[0]);
 		}
 		const response = await fetch(
-			"https://sharonvijay-blog-app-api.vercel.app/api/post/update",
+			"https://sharonvijay-blog-app-api.onrender.com/api/post/update",
 			{
 				method: "PUT",
 				body: data,
