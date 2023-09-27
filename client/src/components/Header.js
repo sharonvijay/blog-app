@@ -1,9 +1,17 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 const Header = () => {
 	const { setUserInfo, userInfo } = useContext(UserContext);
+
+	useEffect(() => {
+		// Check for and retrieve userInfo from localStorage
+		const storedUserInfo = localStorage.getItem("userInfo");
+		if (storedUserInfo) {
+			setUserInfo(JSON.parse(storedUserInfo));
+		}
+	}, [setUserInfo]);
 
 	function logout() {
 		// Clear the authentication token from localStorage
