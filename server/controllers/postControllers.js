@@ -15,12 +15,7 @@ cloudinary.config({
 
 // uploadPost
 const uploadPost = asyncHandler(async (req, res) => {
-	const authHeader = req.headers["authorization"];
-	if (!authHeader || !authHeader.startsWith("Bearer ")) {
-		return res.status(401).json({ error: "Unauthorized" });
-	}
-
-	const token = authHeader.substring(7); // Remove 'Bearer ' prefix
+	var token = req.headers.authorization.split(" ")[1];
 
 	jwt.verify(token, secret, {}, async (err, info) => {
 		if (err) throw err;
