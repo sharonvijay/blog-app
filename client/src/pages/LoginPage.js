@@ -21,10 +21,9 @@ const LoginPage = () => {
 				credentials: "include",
 			}
 		);
-		console.log(response.token);
 		if (response.ok) {
-			// setUserInfo(userInfo);
-			//setRedirect(true);
+			const userInfo = await response.json();
+			console.log(userInfo.token);
 
 			// Fetch user information here and update the context
 			await fetchUserInfoAndSetContext(); // Call this function with await
@@ -36,11 +35,10 @@ const LoginPage = () => {
 	async function fetchUserInfoAndSetContext() {
 		try {
 			const response = await fetch(
-				"https://sharonvijay-blog-app-api.onrender.com/api/user/profile"
-				// "https://sharonvijay-blog-app-api.onrender.com/api/user/profile",
-				// {
-				// 	credentials: "include",
-				// }
+				"https://sharonvijay-blog-app-api.onrender.com/api/user/profile",
+				{
+					credentials: "include",
+				}
 			);
 			if (!response.ok) {
 				throw new Error("Network response was not ok");
