@@ -15,28 +15,17 @@ cloudinary.config({
 
 // uploadPost
 const uploadPost = asyncHandler(async (req, res) => {
-	const { originalname, path } = req.file;
-	console.log("Path " + path);
-	console.log("Original Name " + originalname);
-	const parts = originalname.split(".");
-	const ext = parts[parts.length - 1];
-	const newPath = path + "." + ext;
-	fs.renameSync(path, newPath);
-
 	const { token } = req.cookies;
 	jwt.verify(token, secret, {}, async (err, info) => {
 		if (err) throw err;
 		const { title, summary, content } = req.body;
 
 		try {
-			// Upload the image to Cloudinary
-			const cloudinaryResult = await cloudinary.uploader.upload(newPath);
-
 			const postDoc = await Post.create({
 				title,
 				summary,
 				content,
-				cover: cloudinaryResult.secure_url, // Store Cloudinary URL
+				cover,
 				author: info.id,
 			});
 			res.json(postDoc);

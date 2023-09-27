@@ -16,6 +16,8 @@ const CreatePost = () => {
 		const cloudinaryUrl =
 			"https://api.cloudinary.com/v1_1/sharonvijay/image/upload";
 		const formData = new FormData();
+		console.log("Selected File: ", files[0]);
+
 		formData.append("file", files[0]);
 		formData.append("upload_preset", "blog-app");
 		formData.append("cloud_name", "sharonvijay");
@@ -33,6 +35,8 @@ const CreatePost = () => {
 
 		const cloudinaryData = await cloudinaryResponse.json();
 		const imageUrl = cloudinaryData.secure_url;
+
+		console.log(imageUrl);
 
 		const data = new FormData();
 		data.set("title", title);
@@ -70,7 +74,11 @@ const CreatePost = () => {
 				value={summary}
 				onChange={(ev) => setSummary(ev.target.value)}
 			/>
-			<input type="file" onChange={(ev) => setFiles(ev.target.files)} />
+			<input
+				type="file"
+				accept=".jpg, .jpeg, .png"
+				onChange={(ev) => setFiles(ev.target.files)}
+			/>
 			<Editor value={content} onChange={setContent} />
 			<button style={{ marginTop: "5px" }}>Create post</button>
 		</form>
