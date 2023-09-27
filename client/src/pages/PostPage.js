@@ -46,10 +46,7 @@ const PostPage = () => {
 				</div>
 			)}
 			<div className="image">
-				<img
-					src={`https://sharonvijay-blog-app-api.onrender.com/${postInfo.cover}`}
-					alt=""
-				/>
+				<img src={`${postInfo.cover}`} alt="" />
 			</div>
 			<div
 				className="content"
