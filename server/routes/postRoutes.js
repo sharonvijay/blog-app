@@ -7,9 +7,10 @@ import {
 	getPost,
 } from "../controllers/postControllers.js";
 const router = express.Router();
-
-router.post("/upload", uploadPost);
-router.put("/update", updatePost);
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+router.post("/upload", upload.single("file"), uploadPost);
+router.put("/update", upload.single("file"), updatePost);
 router.get("/", getPosts);
 router.get("/:id", getPost);
 export default router;
