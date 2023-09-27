@@ -44,10 +44,10 @@ const CreatePost = () => {
 		data.set("content", content);
 		data.set("file", imageUrl);
 
-		// Include cookies in the fetch request
-		const cookies = document.cookie; // Get cookies from the document
+		const token = localStorage.getItem("jwtToken");
+
 		const headers = new Headers({
-			Cookie: cookies, // Pass the cookies in the request headers
+			Authorization: `Bearer ${token}`, // Set the Authorization header with the token
 		});
 
 		const response = await fetch(
