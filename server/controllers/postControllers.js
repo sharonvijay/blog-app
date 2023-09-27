@@ -2,10 +2,18 @@ import asycnHandler from "express-async-handler";
 import fs from "fs";
 import jwt from "jsonwebtoken";
 import Post from "../models/Post.js";
+import cloudinary from "cloudinary";
 
 const secret = "asdfe45we45w345wegw345werjktjwertkj";
 
-//uploadPost
+// Configure Cloudinary
+cloudinary.config({
+	cloud_name: "sharonvijay", // Your cloud name
+	api_key: "your_api_key", // Your API key
+	api_secret: "your_api_secret", // Your API secret
+});
+
+// uploadPost
 const uploadPost = asycnHandler(async (req, res) => {
 	const { originalname, path } = req.file;
 	const parts = originalname.split(".");
@@ -17,18 +25,22 @@ const uploadPost = asycnHandler(async (req, res) => {
 	jwt.verify(token, secret, {}, async (err, info) => {
 		if (err) throw err;
 		const { title, summary, content } = req.body;
-		const postDoc = await Post.create({
-			title,
-			summary,
-			content,
-			cover: newPath,
-			author: info.id,
+
+		// Upload the image to Cloudinary
+		cloudinary.uploader.upload(newPath, async (cloudinaryResult) => {
+			const postDoc = await Post.create({
+				title,
+				summary,
+				content,
+				cover: cloudinaryResult.secure_url, // Store Cloudinary URL
+				author: info.id,
+			});
+			res.json(postDoc);
 		});
-		res.json(postDoc);
 	});
 });
 
-//updatePost
+// updatePost
 const updatePost = asycnHandler(async (req, res) => {
 	let newPath = null;
 
@@ -49,22 +61,32 @@ const updatePost = asycnHandler(async (req, res) => {
 		if (!isAuthor) {
 			return res.status(400).json("you are not the author");
 		}
-		// Update the document fields
-		postDoc.title = title;
-		postDoc.summary = summary;
-		postDoc.content = content;
+
+		// If a new image is uploaded, upload it to Cloudinary
 		if (newPath) {
-			postDoc.cover = newPath;
+			cloudinary.uploader.upload(newPath, async (cloudinaryResult) => {
+				// Update the document fields with the new Cloudinary URL
+				postDoc.title = title;
+				postDoc.summary = summary;
+				postDoc.content = content;
+				postDoc.cover = cloudinaryResult.secure_url;
+
+				// Save the updated document
+				await postDoc.save();
+				res.json(postDoc);
+			});
+		} else {
+			// No new image uploaded, update other fields only
+			postDoc.title = title;
+			postDoc.summary = summary;
+			postDoc.content = content;
+			await postDoc.save();
+			res.json(postDoc);
 		}
-
-		// Save the updated document
-		await postDoc.save();
-
-		res.json(postDoc);
 	});
 });
 
-//getPosts
+// getPosts
 const getPosts = asycnHandler(async (req, res) => {
 	res.json(
 		await Post.find()
@@ -74,10 +96,11 @@ const getPosts = asycnHandler(async (req, res) => {
 	);
 });
 
-//getPost
+// getPost
 const getPost = asycnHandler(async (req, res) => {
 	const { id } = req.params;
 	const postDoc = await Post.findById(id).populate("author", ["username"]);
 	res.json(postDoc);
 });
+
 export { uploadPost, updatePost, getPosts, getPost };

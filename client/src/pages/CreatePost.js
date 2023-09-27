@@ -11,11 +11,34 @@ const CreatePost = () => {
 
 	async function createNewPost(ev) {
 		ev.preventDefault();
+
+		// Upload the image to Cloudinary
+		const cloudinaryUrl =
+			"https://api.cloudinary.com/v1_1/sharonvijay/image/upload";
+		const formData = new FormData();
+		formData.append("file", files[0]);
+		formData.append("upload_preset", "blog-app");
+		formData.append("cloud_name", "sharonvijay");
+
+		const cloudinaryResponse = await fetch(cloudinaryUrl, {
+			method: "POST",
+			body: formData,
+		});
+
+		if (!cloudinaryResponse.ok) {
+			// Handle Cloudinary upload error
+			console.error("Error uploading image to Cloudinary");
+			return;
+		}
+
+		const cloudinaryData = await cloudinaryResponse.json();
+		const imageUrl = cloudinaryData.secure_url;
+
 		const data = new FormData();
 		data.set("title", title);
 		data.set("summary", summary);
 		data.set("content", content);
-		data.set("file", files[0]);
+		data.set("file", imageUrl);
 		const response = await fetch(
 			"https://sharonvijay-blog-app-api.onrender.com/api/post/upload",
 			{

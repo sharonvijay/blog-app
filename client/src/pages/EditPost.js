@@ -23,14 +23,40 @@ const EditPost = () => {
 
 	async function updatePost(ev) {
 		ev.preventDefault();
+
+		// Upload the image to Cloudinary if a new image is selected
+		let imageUrl = "";
+		if (files?.[0]) {
+			const cloudinaryUrl =
+				"https://api.cloudinary.com/v1_1/sharonvijay/image/upload";
+			const formData = new FormData();
+			formData.append("file", files[0]);
+			formData.append("upload_preset", "blog-app");
+			formData.append("cloud_name", "sharonvijay");
+
+			const cloudinaryResponse = await fetch(cloudinaryUrl, {
+				method: "POST",
+				body: formData,
+			});
+
+			if (!cloudinaryResponse.ok) {
+				// Handle Cloudinary upload error
+				console.error("Error uploading image to Cloudinary");
+				return;
+			}
+
+			const cloudinaryData = await cloudinaryResponse.json();
+			imageUrl = cloudinaryData.secure_url;
+		}
+
+		// Now, update the post data including the image URL
 		const data = new FormData();
 		data.set("title", title);
 		data.set("summary", summary);
 		data.set("content", content);
 		data.set("id", id);
-		if (files?.[0]) {
-			data.set("file", files?.[0]);
-		}
+		data.set("imageUrl", imageUrl); // Image URL from Cloudinary
+
 		const response = await fetch(
 			"https://sharonvijay-blog-app-api.onrender.com/api/post/update",
 			{
@@ -39,6 +65,7 @@ const EditPost = () => {
 				credentials: "include",
 			}
 		);
+
 		if (response.ok) {
 			setRedirect(true);
 		}
