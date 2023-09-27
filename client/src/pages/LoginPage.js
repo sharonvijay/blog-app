@@ -5,7 +5,7 @@ import { UserContext } from "../context/UserContext";
 const LoginPage = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [redirect, setRedirect] = useState(false);
+	//const [redirect, setRedirect] = useState(false);
 
 	const navigate = useNavigate();
 	const { setUserInfo } = useContext(UserContext);
@@ -22,17 +22,16 @@ const LoginPage = () => {
 			}
 		);
 		if (response.ok) {
-			response.json().then((userInfo) => {
-				// setUserInfo(userInfo);
-				setRedirect(true);
+			// setUserInfo(userInfo);
+			//setRedirect(true);
 
-				// Fetch user information here and update the context
-				fetchUserInfoAndSetContext();
-			});
+			// Fetch user information here and update the context
+			await fetchUserInfoAndSetContext(); // Call this function with await
 		} else {
 			alert("wrong credentials");
 		}
 	}
+
 	async function fetchUserInfoAndSetContext() {
 		try {
 			const response = await fetch(
@@ -51,9 +50,9 @@ const LoginPage = () => {
 			console.error("Error fetching user profile:", error);
 		}
 	}
-	if (redirect) {
-		return null;
-	}
+	// if (redirect) {
+	// 	return null;
+	// }
 	return (
 		<form className="login" onSubmit={login}>
 			<h1>Login</h1>
