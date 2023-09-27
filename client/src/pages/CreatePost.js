@@ -43,12 +43,20 @@ const CreatePost = () => {
 		data.set("summary", summary);
 		data.set("content", content);
 		data.set("file", imageUrl);
+
+		// Include cookies in the fetch request
+		const cookies = document.cookie; // Get cookies from the document
+		const headers = new Headers({
+			Cookie: cookies, // Pass the cookies in the request headers
+		});
+
 		const response = await fetch(
 			"https://sharonvijay-blog-app-api.onrender.com/api/post/upload",
 			{
 				method: "POST",
 				body: data,
 				credentials: "include",
+				headers: headers,
 			}
 		);
 		if (response.ok) {
