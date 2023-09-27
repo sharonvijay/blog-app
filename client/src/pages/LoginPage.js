@@ -24,52 +24,14 @@ const LoginPage = () => {
 		if (response.ok) {
 			const userInfo = await response.json();
 			console.log(userInfo.token);
-
-			// Fetch user information here and update the context
-			// await fetchUserInfoAndSetContext(); // Call this function with await
-
-			try {
-				const response = await fetch(
-					"https://sharonvijay-blog-app-api.onrender.com/api/user/profile",
-					{
-						credentials: "include",
-					}
-				);
-				if (!response.ok) {
-					throw new Error("Network response was not ok");
-				}
-				const userInfo = await response.json();
+			response.json().then((userInfo) => {
 				setUserInfo(userInfo);
 				navigate("/");
-			} catch (error) {
-				console.error("Error fetching user profile:", error);
-			}
+			});
 		} else {
 			alert("wrong credentials");
 		}
 	}
-
-	// async function fetchUserInfoAndSetContext() {
-	// 	try {
-	// 		const response = await fetch(
-	// 			"https://sharonvijay-blog-app-api.onrender.com/api/user/profile",
-	// 			{
-	// 				credentials: "include",
-	// 			}
-	// 		);
-	// 		if (!response.ok) {
-	// 			throw new Error("Network response was not ok");
-	// 		}
-	// 		const userInfo = await response.json();
-	// 		setUserInfo(userInfo);
-	// 		navigate("/");
-	// 	} catch (error) {
-	// 		console.error("Error fetching user profile:", error);
-	// 	}
-	// }
-	// if (redirect) {
-	// 	return null;
-	// }
 	return (
 		<form className="login" onSubmit={login}>
 			<h1>Login</h1>
