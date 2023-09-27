@@ -35,10 +35,11 @@ const LoginPage = () => {
 	async function fetchUserInfoAndSetContext() {
 		try {
 			const response = await fetch(
-				"https://sharonvijay-blog-app-api.onrender.com/api/user/profile",
-				{
-					credentials: "include",
-				}
+				"https://sharonvijay-blog-app-api.onrender.com/api/user/profile"
+				// "https://sharonvijay-blog-app-api.onrender.com/api/user/profile",
+				// {
+				// 	credentials: "include",
+				// }
 			);
 			if (!response.ok) {
 				throw new Error("Network response was not ok");
