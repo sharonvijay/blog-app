@@ -24,10 +24,8 @@ const LoginPage = () => {
 		if (response.ok) {
 			const userInfo = await response.json();
 			console.log(userInfo.token);
-			response.json().then((userInfo) => {
-				setUserInfo(userInfo);
-				navigate("/");
-			});
+			setUserInfo(userInfo);
+			navigate("/");
 		} else {
 			alert("wrong credentials");
 		}
