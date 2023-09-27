@@ -13,9 +13,13 @@ const LoginPage = () => {
 	useEffect(() => {
 		const token = localStorage.getItem("authToken");
 		if (token) {
+			const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+			if (userInfo) {
+				setUserInfo(userInfo);
+			}
 			navigate("/");
 		}
-	}, [navigate]);
+	}, [navigate, setUserInfo]);
 
 	async function login(ev) {
 		ev.preventDefault();
@@ -31,6 +35,9 @@ const LoginPage = () => {
 		if (response.ok) {
 			const userInfo = await response.json();
 			console.log(userInfo.token);
+
+			// Store the user info in localStorage
+			localStorage.setItem("userInfo", JSON.stringify(userInfo));
 
 			// Store the authentication token in localStorage
 			localStorage.setItem("authToken", userInfo.token);

@@ -9,6 +9,9 @@ const Header = () => {
 		// Clear the authentication token from localStorage
 		localStorage.removeItem("authToken");
 
+		// Clear the userInfo from localStorage
+		localStorage.removeItem("userInfo");
+
 		fetch("https://sharonvijay-blog-app-api.onrender.com/api/user/logout", {
 			credentials: "include",
 			method: "POST",
