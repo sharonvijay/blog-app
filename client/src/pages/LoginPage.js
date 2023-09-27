@@ -21,6 +21,7 @@ const LoginPage = () => {
 				credentials: "include",
 			}
 		);
+		console.log(response.token);
 		if (response.ok) {
 			// setUserInfo(userInfo);
 			//setRedirect(true);
