@@ -7,9 +7,9 @@ import {
 	getPost,
 } from "../controllers/postControllers.js";
 const router = express.Router();
-const uploadMiddleware = multer({ dest: "uploads/" });
-router.post("/upload", uploadMiddleware.single("file"), uploadPost);
-router.put("/update", uploadMiddleware.single("file"), updatePost);
+
+router.post("/upload", uploadPost);
+router.put("/update", updatePost);
 router.get("/", getPosts);
 router.get("/:id", getPost);
 export default router;

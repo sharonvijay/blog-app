@@ -40,7 +40,7 @@ app.options("*", (req, res) => {
 
 app.use(cookieParser());
 app.use(express.json());
-app.use("/uploads", express.static(__dirname + "/uploads"));
+// app.use("/uploads", express.static(__dirname + "/uploads"));
 
 const PORT = 5000;
 // DB Connection
