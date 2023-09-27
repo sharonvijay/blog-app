@@ -55,6 +55,7 @@ const loginUser = asyncHandler(async (req, res) => {
 			res.cookie("token", token).json({
 				id: userDoc._id,
 				username,
+				token: token,
 			});
 		});
 	} else {
