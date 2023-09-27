@@ -55,7 +55,13 @@ const EditPost = () => {
 		data.set("summary", summary);
 		data.set("content", content);
 		data.set("id", id);
-		data.set("imageUrl", imageUrl); // Image URL from Cloudinary
+		data.set("cover", imageUrl); // Image URL from Cloudinary
+
+		const token = localStorage.getItem("authToken");
+
+		const headers = new Headers({
+			Authorization: `Bearer ${token}`, // Set the Authorization header with the token
+		});
 
 		const response = await fetch(
 			"https://sharonvijay-blog-app-api.onrender.com/api/post/update",
@@ -63,6 +69,7 @@ const EditPost = () => {
 				method: "PUT",
 				body: data,
 				credentials: "include",
+				headers: headers,
 			}
 		);
 

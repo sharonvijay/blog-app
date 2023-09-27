@@ -39,42 +39,15 @@ const uploadPost = asyncHandler(async (req, res) => {
 
 // updatePost
 const updatePost = asyncHandler(async (req, res) => {
-	let cloudinaryResult = null;
+	var token = req.headers.authorization.split(" ")[1];
 
-	if (req.file) {
-		const { originalname, buffer } = req.file;
-		const parts = originalname.split(".");
-		const ext = parts[parts.length - 1];
-
-		try {
-			// Upload the new image to Cloudinary
-			cloudinaryResult = await cloudinary.uploader.upload_stream(
-				{ resource_type: "image", format: ext },
-				(error, result) => {
-					if (error) {
-						console.error(error);
-						return res
-							.status(500)
-							.json({ error: "File upload to Cloudinary failed" });
-					}
-					cloudinaryResult = result; // Update cloudinaryResult with the result
-				}
-			);
-		} catch (error) {
-			console.error(error);
-			return res
-				.status(500)
-				.json({ error: "File upload to Cloudinary failed" });
-		}
-	}
-
-	const { token } = req.cookies;
 	jwt.verify(token, secret, {}, async (err, info) => {
 		if (err) {
 			return res.status(401).json({ error: "Unauthorized" });
 		}
 
-		const { id, title, summary, content } = req.body;
+		const { id, title, summary, content, cover } = req.body;
+
 		const postDoc = await Post.findById(id);
 
 		if (!postDoc) {
@@ -88,18 +61,10 @@ const updatePost = asyncHandler(async (req, res) => {
 		}
 
 		try {
-			if (cloudinaryResult) {
-				// Update the document fields with the new Cloudinary URL
-				postDoc.title = title;
-				postDoc.summary = summary;
-				postDoc.content = content;
-				postDoc.cover = cloudinaryResult.secure_url;
-			} else {
-				// No new image uploaded, update other fields only
-				postDoc.title = title;
-				postDoc.summary = summary;
-				postDoc.content = content;
-			}
+			postDoc.title = title;
+			postDoc.summary = summary;
+			postDoc.content = content;
+			postDoc.cover = cover;
 
 			// Save the updated document
 			await postDoc.save();
