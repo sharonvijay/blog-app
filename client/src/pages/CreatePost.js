@@ -44,7 +44,7 @@ const CreatePost = () => {
 		data.set("content", content);
 		data.set("file", imageUrl);
 
-		const token = localStorage.getItem("jwtToken");
+		const token = localStorage.getItem("authToken");
 
 		const headers = new Headers({
 			Authorization: `Bearer ${token}`, // Set the Authorization header with the token
