@@ -6,11 +6,19 @@ const Header = () => {
 	const { setUserInfo, userInfo } = useContext(UserContext);
 
 	function logout() {
+		// Clear the authentication token from localStorage
+		localStorage.removeItem("authToken");
+
 		fetch("https://sharonvijay-blog-app-api.onrender.com/api/user/logout", {
 			credentials: "include",
 			method: "POST",
-		});
-		setUserInfo(null);
+		})
+			.then(() => {
+				setUserInfo(null);
+			})
+			.catch((error) => {
+				console.error("Logout error:", error);
+			});
 	}
 
 	const username = userInfo?.username;

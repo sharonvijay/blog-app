@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
@@ -9,6 +9,13 @@ const LoginPage = () => {
 
 	const navigate = useNavigate();
 	const { setUserInfo } = useContext(UserContext);
+
+	useEffect(() => {
+		const token = localStorage.getItem("authToken");
+		if (token) {
+			navigate("/");
+		}
+	}, [navigate]);
 
 	async function login(ev) {
 		ev.preventDefault();
@@ -24,6 +31,10 @@ const LoginPage = () => {
 		if (response.ok) {
 			const userInfo = await response.json();
 			console.log(userInfo.token);
+
+			// Store the authentication token in localStorage
+			localStorage.setItem("authToken", userInfo.token);
+
 			setUserInfo(userInfo);
 			navigate("/");
 		} else {
